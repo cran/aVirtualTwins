@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Francois Vieille" />
+
+<meta name="date" content="2016-10-09" />
+
+<title>Virtual Twins Examples</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+
+
+
+<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%7D%0Apre%20%7B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Virtual Twins Examples</h1>
+<h4 class="author"><em>Francois Vieille</em></h4>
+<h4 class="date"><em>2016-10-09</em></h4>
+
+
+
+<div id="contents" class="section level1">
+<h1>Contents</h1>
+<ol style="list-style-type: decimal">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#quick-preview">Quick preview</a></li>
+<li><a href="#sepsis-dataset">Sepsis dataset</a></li>
+<li><a href="#create-object-virtualtwins">Create object virtual twins</a></li>
+<li><a href="#step-1-compute-hatp_1i-and-hatp_0i">Step 1 : compute probabilities</a></li>
+<li><a href="#step-2-estimate-a-regression-or-classification-tree">Step 2 : Estimate a decision tree</a></li>
+<li><a href="#subgroups-and-results">Subgroups and results</a></li>
+<li><a href="#questions">Questions</a></li>
+</ol>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The goal of this vignette is to show most of all possibilies with <em>aVT</em> (for <em>aVirtualTwins</em> meaning <em>a</em>daptation of <em>Virtual Twins</em> method) package.</p>
+<p><em>VT</em> method (Jared Foster and al, 2011) has been created to find subgroup of patients with enhanced treatment effect, if it exists. Theorically, this method can be used for binary and continous outcome. This package only deals with binary outcome in a two arms clinical trial.</p>
+<p><em>VT</em> method is based on random forests and regression/classification trees.</p>
+<p>I decided to use a simulated dataset called <em>sepsis</em> in order to show how <em>aVT</em> package can be used. Type <code>?sepsis</code> to know more about this dataset. Anyway, the true subgroup is <code>PRAPACHE &lt;= 26 &amp; AGE &lt;= 49.80</code>.</p>
+<p><strong>NOTE:</strong> This true subgroup is defined with the <em>lower</em> event rate (<code>survival = 1</code>) in treatement arm. Therefore in following examples we’ll search the subgroup with the <em>highest</em> event rate, and we know it is <code>PRAPACHE &gt; 26 &amp; AGE &gt; 49.80</code>.</p>
+<hr />
+</div>
+<div id="quick-preview" class="section level1">
+<h1>Quick preview</h1>
+<div id="dataset" class="section level2">
+<h2> Dataset</h2>
+<p>Data used in <em>VT</em> are modelized by <span class="math">\(\left\{Y, T, X_1, \ldots, X_{p-2}\right\}\)</span>. <span class="math">\(p\)</span> is the number of variables.</p>
+<ul>
+<li><span class="math">\(Y\)</span> is a binary outcome. In R, <span class="math">\(Y\)</span> is a <code>factor</code>. Second level of this factor will be the desirable event. (<span class="math">\(Y=1\)</span>)</li>
+<li><span class="math">\(T\)</span> is treatment variable, <span class="math">\(T=1\)</span> means <em>active treatement</em>, <span class="math">\(T=0\)</span> means <em>control treatment</em>. In R, <span class="math">\(T\)</span> is numeric.</li>
+<li><span class="math">\(X_i\)</span> is covariables, <span class="math">\(X_i\)</span> can be categorical, continous, binary.</li>
+</ul>
+<p><strong>NOTE:</strong> if you run <em>VT</em> with interactions, categorical covariables must be transformed into binary variables.</p>
+<p>Type <code>?formatRCTDataset</code> for details.</p>
+<p>Related functions/classes in aVirtualTwins package : <code>VT.object()</code>, <code>vt.data()</code>, <code>formatRCTDataset</code>.</p>
+</div>
+<div id="method" class="section level2">
+<h2>Method</h2>
+<p><em>VT</em> is a two steps method but with many possibilities</p>
+<p>let <span class="math">\(\hat{P_{1i}} = P(Y_i = 1|T_i = 1, X_i)\)</span><br />let <span class="math">\(\hat{P_{0i}} = P(Y_i = 1|T_i = 0, X_i)\)</span><br />let <span class="math">\(X = \left\{X_1, \ldots, X_{p-2}\right\}\)</span></p>
+<div id="first-step" class="section level3">
+<h3>First Step</h3>
+<ul>
+<li>Grow a random forest with data <span class="math">\(\left\{Y, T, X \right\}\)</span>.<br /></li>
+<li>Grow a random forest with interaction treatement / covariable, i.e. <span class="math">\(\left\{Y, T, X, XI(T_i=0), XI(T_i=1)\right\}\)</span></li>
+<li>Grow two random forests, one for each treatement:
+<ul>
+<li>The first with data <span class="math">\(\left\{Y, X \right\}\)</span> where <span class="math">\(T_i = 0\)</span><br /></li>
+<li>The second with data <span class="math">\(\left\{Y, X \right\}\)</span> where <span class="math">\(T_i = 1\)</span><br /></li>
+</ul></li>
+<li>Build your own model</li>
+</ul>
+<p>From one of these methods you can estimate <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span>.</p>
+<p>Related functions/classes in aVirtualTwins package : <code>VT.difft()</code>, <code>vt.forest()</code>.</p>
+</div>
+<div id="second-step" class="section level3">
+<h3>Second Step</h3>
+<p>Define <span class="math">\(Z_i = \hat{P_{1i}} - \hat{P_{0i}}\)</span></p>
+<ul>
+<li>Use regression tree to explain <span class="math">\(Z\)</span> by covariables <span class="math">\(X\)</span>. Then subjects with predicted <span class="math">\(Z_i\)</span> greater than some threshold <span class="math">\(c\)</span> are considered to define a subgroup.</li>
+<li>Use classification tree on new variable <span class="math">\(Z^{*}\)</span> defined by <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &gt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise.</li>
+</ul>
+<p>The idea is to identify which covariable from <span class="math">\(X\)</span> described variation of <span class="math">\(Z\)</span>.</p>
+<p>Related function in aVirtualTwins package : <code>vt.tree()</code>.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="sepsis-dataset" class="section level1">
+<h1>Sepsis dataset</h1>
+<p>See <strong>Introduction</strong>.</p>
+<p><em>Sepsis</em> dataset is a simulated clinical trial with two groups treatment about sepsis desease. See details. This dataset is taken from <a href="http://biopharmnet.com/subgroup-analysis-software/">SIDES method</a></p>
+<p><em>Sepsis</em> contains simulated data on 470 subjects with a binary outcome survival, that stores survival status for patient after 28 days of treatment, value of 1 for subjects who died after 28 days and 0 otherwise. There are 11 covariates, listed below, all of which are numerical variables.</p>
+<p>Note that contrary to the original dataset used in SIDES, missing values have been imputed by random forest <code>randomForest::rfImpute()</code>. See file <em>data-raw/sepsis.R</em> for more details.</p>
+<p>True subgroup is <code>PRAPACHE &lt;= 26 &amp; AGE &lt;= 49.80</code>. <strong>NOTE:</strong> This subgroup is defined with the <em>lower</em> event rate (survival = 1) in treatement arm.</p>
+<p>470 patients and 13 variables:</p>
+<ul>
+<li><code>survival</code> : binary outcome</li>
+<li><code>THERAPY</code> : 1 for active treatment, 0 for control treatment</li>
+<li><code>TIMFIRST</code> : Time from first sepsis-organ fail to start drug</li>
+<li><code>AGE</code> : Patient age in years</li>
+<li><code>BLLPLAT</code> : Baseline local platelets</li>
+<li><code>blSOFA</code> : Sum of baselin sofa (cardiovascular, hematology, hepaticrenal, and respiration scores)</li>
+<li><code>BLLCREAT</code> : Base creatinine</li>
+<li><code>ORGANNUM</code> : Number of baseline organ failures</li>
+<li><code>PRAPACHE</code> : Pre-infusion apache-ii score</li>
+<li><code>BLGCS</code> : Base GLASGOW coma scale score</li>
+<li><code>BLIL6</code> : Baseline serum IL-6 concentration</li>
+<li><code>BLADL</code> : Baseline activity of daily living score</li>
+<li><code>BLLBILI</code> : Baseline local bilirubin</li>
+</ul>
+<p><strong>Source:</strong> <a href="http://biopharmnet.com/subgroup-analysis-software/" class="uri">http://biopharmnet.com/subgroup-analysis-software/</a></p>
+<hr />
+</div>
+<div id="create-object-virtualtwins" class="section level1">
+<h1>Create object VirtualTwins</h1>
+<p>In order to begin the two steps of <em>VT</em> method, aVirtualTwins package needs to be initialized with <code>vt.data()</code> function. type <code>?vt.data</code> for more details.</p>
+<p><strong>NOTE:</strong> if running VT with interactions between <span class="math">\(T\)</span> and <span class="math">\(X\)</span>, set <code>interactions = TRUE</code>.</p>
+<p>Code of <code>vt.data()</code> :</p>
+<pre class="sourceCode r"><code class="sourceCode r">vt.data &lt;-<span class="st"> </span>function(dataset, outcome.field, treatment.field, <span class="dt">interactions =</span> <span class="ot">TRUE</span>, ...){
+  data &lt;-<span class="st"> </span><span class="kw">formatRCTDataset</span>(dataset, outcome.field, treatment.field, <span class="dt">interactions =</span> <span class="ot">TRUE</span>)
+  <span class="kw">VT.object</span>(<span class="dt">data =</span> data, ...)
+}</code></pre>
+<p><strong>Example with Sepsis</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load library VT</span>
+<span class="kw">library</span>(aVirtualTwins)
+<span class="co"># load data sepsis</span>
+<span class="kw">data</span>(sepsis)
+<span class="co"># initialize VT.object</span>
+vt.o &lt;-<span class="st"> </span><span class="kw">vt.data</span>(sepsis, <span class="st">&quot;survival&quot;</span>, <span class="st">&quot;THERAPY&quot;</span>, <span class="ot">TRUE</span>)
+## &quot;1&quot; will be the favorable outcome</code></pre>
+<p>1 will be the favorable outcome because 1 is the second level of <code>&quot;survival&quot;</code> column. It means that <span class="math">\(P(Y=1)\)</span> is the probability of interest. Anyway, it’s still possible to compute <span class="math">\(P(Y=0)\)</span>.</p>
+<p><strong>Quick example</strong></p>
+<p><em>Sepsis</em> does not have any categorical variable, following example show how <code>vt.data</code> deals with categorical values depending on <code>interactions</code> parameter</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creation of categorical variable</span>
+cat.x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">5</span>, (<span class="kw">nrow</span>(sepsis))/<span class="dv">5</span>)
+cat.x &lt;-<span class="st"> </span><span class="kw">as.factor</span>(cat.x)
+sepsis.tmp &lt;-<span class="st"> </span><span class="kw">cbind</span>(sepsis, cat.x)
+vt.o.tmp &lt;-<span class="st"> </span><span class="kw">vt.data</span>(sepsis.tmp, <span class="st">&quot;survival&quot;</span>, <span class="st">&quot;THERAPY&quot;</span>, <span class="ot">TRUE</span>)
+## &quot;1&quot; will be the favorable outcome 
+## Creation of dummy variables for cat.x 
+## Dummy variable cat.x_1 created 
+## Dummy variable cat.x_2 created 
+## Dummy variable cat.x_3 created 
+## Dummy variable cat.x_4 created 
+## Dummy variable cat.x_5 created</code></pre>
+<p>Dummies variables are created for each category of <code>cat.x</code> variable. And <code>cat.x</code> is removed from dataset.</p>
+<hr />
+</div>
+<div id="step-1-compute-hatp_1i-and-hatp_0i" class="section level1">
+<h1>Step 1 : compute <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span></h1>
+<p>As described earlier, step 1 can be done via differents ways</p>
+<div id="simple-random-forest" class="section level2">
+<h2>Simple Random Forest</h2>
+<p>Following example used <em>sepsis</em> data created in previous part.</p>
+<p>To perform simple random forest on <code>VT.object</code>, <code>randomForest</code>, <code>caret</code> and <code>party</code> package can be used.</p>
+<p>Class <code>vt.forest(&quot;one&quot;, ...)</code> is used. It takes in arguments :</p>
+<ul>
+<li><code>forest.type</code> : you have to set it to <code>&quot;one&quot;</code></li>
+<li><code>vt.data</code> : return of <code>vt.data()</code> function</li>
+<li><code>model</code> : a random forest model</li>
+<li><code>interactions</code> : logical, <code>TRUE</code> is default value</li>
+<li><code>...</code> : options to <code>randomForest()</code> function</li>
+</ul>
+<p><strong>with <code>randomForest</code></strong></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use randomForest::randomForest()</span>
+<span class="kw">library</span>(randomForest, <span class="dt">verbose =</span> F)
+## randomForest 4.6-12
+## Type rfNews() to see new features/changes/bug fixes.
+<span class="co"># Reproducibility</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+<span class="co"># Fit rf model </span>
+<span class="co"># default params</span>
+<span class="co"># set interactions to TRUE if using interaction between T and X</span>
+model.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o$<span class="kw">getX</span>(<span class="dt">interactions =</span> T),
+                         <span class="dt">y =</span> vt.o$<span class="kw">getY</span>(),
+                         <span class="dt">ntree =</span> <span class="dv">500</span>)
+<span class="co"># initialize VT.forest.one</span>
+vt.f.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">model =</span> model.rf, <span class="dt">interactions =</span> T)
+### or you can use randomForest inside vt.forest()
+vt.f.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">interactions =</span> T, <span class="dt">ntree =</span> <span class="dv">500</span>)</code></pre>
+<p><strong>with <code>party</code></strong></p>
+<p><code>cforest()</code> can be usefull however computing time is really long. I think there is an issue when giving <em>cforest object</em> in Reference Class parameter. Need to fix it.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># # use randomForest::randomForest()</span>
+<span class="co"># library(party, verbose = F)</span>
+<span class="co"># # Reproducibility</span>
+<span class="co"># set.seed(123)</span>
+<span class="co"># # Fit cforest model </span>
+<span class="co"># # default params</span>
+<span class="co"># # set interactions to TRUE if using interaction between T and X</span>
+<span class="co"># model.cf &lt;- cforest(formula = vt.o$getFormula(), data = vt.o$getData(interactions = T))</span>
+<span class="co"># # initialize VT.forest.one</span>
+<span class="co"># vt.f.cf &lt;- vt.forest(&quot;one&quot;, vt.data = vt.o, model = model.cf)</span></code></pre>
+<p><strong>with <code>caret</code></strong></p>
+<p>Using <code>caret</code> can be usefull to deal with parallel computing for example.</p>
+<p><strong>NOTE:</strong> For <code>caret</code> levels of outcome can’t be 0, so i’ll change levels name into “n”/“y”</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Copy new object</span>
+vt.o.tr &lt;-<span class="st"> </span>vt.o$<span class="kw">copy</span>()
+<span class="co"># Change levels</span>
+tmp &lt;-<span class="st"> </span><span class="kw">ifelse</span>(vt.o.tr$data$survival ==<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;n&quot;</span>)
+vt.o.tr$data$survival &lt;-<span class="st"> </span><span class="kw">as.factor</span>(tmp)
+<span class="kw">rm</span>(tmp)
+<span class="co"># Check new data to be sure</span>
+<span class="kw">formatRCTDataset</span>(vt.o.tr$data, <span class="st">&quot;survival&quot;</span>, <span class="st">&quot;THERAPY&quot;</span>)
+## &quot;y&quot; will be the favorable outcome
+<span class="co"># use caret::train()</span>
+<span class="kw">library</span>(caret, <span class="dt">verbose =</span> F)
+## Loading required package: lattice
+## Loading required package: ggplot2
+## 
+## Attaching package: 'ggplot2'
+## The following object is masked from 'package:randomForest':
+## 
+##     margin
+<span class="co"># Reproducibility</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+<span class="co"># fit train model</span>
+fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">classProbs =</span> T, <span class="dt">method =</span> <span class="st">&quot;none&quot;</span>)
+model.tr &lt;-<span class="st"> </span><span class="kw">train</span>(<span class="dt">x =</span> vt.o.tr$<span class="kw">getX</span>(<span class="dt">interactions =</span> T),
+                  <span class="dt">y =</span> vt.o.tr$<span class="kw">getY</span>(),
+                  <span class="dt">method =</span> <span class="st">&quot;rf&quot;</span>,
+                  <span class="dt">tuneGrid =</span> <span class="kw">data.frame</span>(<span class="dt">mtry =</span> <span class="dv">5</span>),
+                  <span class="dt">trControl =</span> fitControl)
+<span class="co"># initialize VT.forest.one</span>
+vt.f.tr &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, vt.o.tr, <span class="dt">model =</span> model.tr)</code></pre>
+</div>
+<div id="double-random-forest" class="section level2">
+<h2>Double Random Forest</h2>
+<p>To perform double random forest on <code>VT.object</code>, same packages as simple random forest can be used.</p>
+<p>Function <code>vt.forest(&quot;double&quot;, ...)</code> is used. It takes in arguments :</p>
+<ul>
+<li><code>forest.type</code> : You have to set is to <code>&quot;double&quot;</code></li>
+<li><code>vt.data</code> : return of <code>vt.data()</code> function</li>
+<li><code>model_trt1</code> : a random forest model for <span class="math">\(T=1\)</span> (this argument has to be specified)</li>
+<li><code>model_trt0</code> : a random forest model for <span class="math">\(T=0\)</span> (this argument has to be specified)</li>
+</ul>
+<p><strong>NOTE:</strong> use <code>trt</code> parameter in <code>VT.object::getX()</code> or <code>VT.object::getY()</code> methods to obtain part of data depending on treatment. See following example.</p>
+<p><strong>with <code>randomForest</code></strong></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grow RF for T = 1</span>
+model.rf.trt1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o$<span class="kw">getX</span>(<span class="dt">trt =</span> <span class="dv">1</span>),
+                              <span class="dt">y =</span> vt.o$<span class="kw">getY</span>(<span class="dt">trt =</span> <span class="dv">1</span>))
+<span class="co"># grow RF for T = 0</span>
+model.rf.trt0 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o$<span class="kw">getX</span>(<span class="dt">trt =</span> <span class="dv">0</span>),
+                              <span class="dt">y =</span> vt.o$<span class="kw">getY</span>(<span class="dt">trt =</span> <span class="dv">0</span>))
+<span class="co"># initialize VT.forest.double()</span>
+vt.doublef.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;double&quot;</span>,
+                           <span class="dt">vt.data =</span> vt.o, 
+                           <span class="dt">model_trt1 =</span> model.rf.trt1, 
+                           <span class="dt">model_trt0 =</span> model.rf.trt0)
+### Or you can use randomForest() inside
+vt.doublef.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;double&quot;</span>,
+                           <span class="dt">vt.data =</span> vt.o,
+                           <span class="dt">ntree =</span> <span class="dv">200</span>)</code></pre>
+<p>Follow the same structure for <code>caret</code> or <code>cforest</code> models.</p>
+</div>
+<div id="k-fold-random-forest" class="section level2">
+<h2>K Fold Random Forest</h2>
+<p>This idea is taken from <em>method 3</em> of Jared Foster paper :</p>
+<blockquote>
+<p>A modification of [previous methods] is to obtain <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span> via cross-validation. In this méthod the specific data for subject <span class="math">\(i\)</span> is not used to obtain <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span>. Using k-fold cross-validation, we apply random forest regression approach to <span class="math">\(\frac{k-1}{k}\)</span> of the data and use the resulting predictor to obtain estimates of <span class="math">\(P_{1i}\)</span> and <span class="math">\(P_{0i}\)</span> for the remaining <span class="math">\(\frac{1}{k}\)</span> of the observations. This is repeated <span class="math">\(k\)</span> times.</p>
+</blockquote>
+<p>To use this approach, use <code>vt.forest(&quot;fold&quot;, ...)</code>. This class takes in argument :</p>
+<ul>
+<li><code>forest.type</code> : it has to be set to <code>&quot;fold&quot;</code></li>
+<li><code>vt.data</code> : return of <code>vt.data()</code> function</li>
+<li><code>fold</code> : number of fold (e.g. <span class="math">\(5\)</span>)</li>
+<li><code>ratio</code> : Control of sampsize balance. <code>ratio</code> of <span class="math">\(2\)</span> means that there 2 times le highest level compared to the other. “Highest” means the level with larger observations. It’s in test.</li>
+<li><code>interactions</code> : Logical. If <code>TRUE</code>, interactions between covariables and treatments are used. <code>FALSE</code> otherwise.</li>
+<li><code>...</code> : <code>randomForest()</code> function options</li>
+</ul>
+<p><strong>NOTE:</strong> This function use only <code>randomForest</code> package.</p>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># initialize k-fold RF</span>
+<span class="co"># you can use randomForest options</span>
+model.fold &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;fold&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">fold =</span> <span class="dv">5</span>, <span class="dt">ratio =</span> <span class="dv">1</span>, <span class="dt">interactions =</span> T, <span class="dt">ntree =</span> <span class="dv">200</span>)</code></pre>
+</div>
+<div id="build-your-own-model" class="section level2">
+<h2>Build Your Own Model</h2>
+<p>Random Forests are not the only models you can use to compute <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span>. Any prediction model can be used, as logitic regression, boosting …</p>
+<p>Anyway, aVirtualTwins package can be used. To do so, you can use <code>VT.difft()</code> class. It is important to note this the parent class of all “forests” classes. It takes in argument :</p>
+<ul>
+<li><code>vt.object</code> : return of <code>vt.data()</code> function</li>
+<li><code>twin1</code> : estimate of <span class="math">\(P(Y_{i} = 1 | T = T_{i})\)</span> : meaning response probability under the correct treatment.</li>
+<li><code>twin2</code> : estimate of <span class="math">\(P(Y_{i} = 1 | T = 1-T_{i})\)</span> : meaning response probability under the other treatment.</li>
+<li><code>method</code> : <em>absolute</em> (default), <em>relative</em> or <em>logit</em>. See <code>?VT.difft</code> for details.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you get twin1 and twin2 by your own method</span>
+<span class="co"># here, i'll use random number between 0 and 1 :</span>
+twin1_random &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">470</span>)
+twin2_random &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">470</span>)
+
+<span class="co"># then you can initialize VT.difft class : </span>
+model.difft &lt;-<span class="st"> </span><span class="kw">VT.difft</span>(vt.o, <span class="dt">twin1 =</span> twin1_random, <span class="dt">twin2 =</span> twin2_random, <span class="st">&quot;absolute&quot;</span>)
+<span class="co"># compute difference of twins : </span>
+model.difft$<span class="kw">computeDifft</span>()
+<span class="co"># See results</span>
+<span class="kw">head</span>(model.difft$difft)
+## [1] -0.03599908 -0.44271883 -0.25458624 -0.64201822  0.29347148 -0.02843780
+<span class="co"># Graph :</span>
+<span class="co"># hist(model.difft$difft)</span></code></pre>
+<p><strong>NOTE: Also, you can clone repository, write your own child class of <code>VT.difft()</code> AND submit it !</strong></p>
+<hr />
+</div>
+</div>
+<div id="step-2-estimate-a-regression-or-classification-tree" class="section level1">
+<h1>Step 2 : Estimate a Regression or Classification Tree</h1>
+<p>As described in the method, we define <span class="math">\(Z_i = \hat{P_{1i}} - \hat{P_{0i}}\)</span>. It’s the difference in term of response of the active treatments compared to the control treatment. The idea is to try to explain this difference by few covariables.</p>
+<div id="classification" class="section level2">
+<h2>Classification</h2>
+<p>We define a new variable <span class="math">\(Z^{*}\)</span>, <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &gt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise. Classification tree’s goal is to explain the value <span class="math">\(Z^*=1\)</span>. <span class="math">\(c\)</span> is a threshold given by the user. It’s the threshold for which the difference is “interesting”. One idea is to use quantiles of the <em>difft</em> distribution.</p>
+<p>To compute a classifiction tree, <code>vt.tree(&quot;class&quot;, ...)</code> is used. Internally, <code>rpart::rpart()</code> is computed. It takes in argument:</p>
+<ul>
+<li><code>tree.type</code> : it has to be set to <code>&quot;class&quot;</code></li>
+<li><code>vt.difft</code> : <code>VT.difft</code> object (return of <code>vt.forest()</code> function)</li>
+<li><code>sens</code> : <code>c(&quot;&gt;&quot;, &quot;&lt;&quot;)</code>. <code>sens</code> corresponds to the way <span class="math">\(Z^{*}\)</span> is defined.
+<ul>
+<li><code>&quot;&gt;&quot;</code> (default) : <span class="math">\(Z^{*}\)</span>, <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &gt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise.</li>
+<li><code>&quot;&lt;&quot;</code> : <span class="math">\(Z^{*}\)</span>, <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &lt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise.<br /></li>
+</ul></li>
+<li><code>threshold</code> : corresponds to <span class="math">\(c\)</span>, it can be a vector. <span class="math">\(seq(.5, .8, .1)\)</span> by default.</li>
+<li><code>screening</code> : <code>NULL</code> is default value. If <code>TRUE</code> only covariables in <code>varimp</code> <code>vt.data</code> ’s field is used.</li>
+</ul>
+<p>See <code>?VT.tree</code> for details.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize classification tree</span>
+tr.class &lt;-<span class="st"> </span><span class="kw">vt.tree</span>(<span class="st">&quot;class&quot;</span>,
+                    <span class="dt">vt.difft =</span> vt.f.rf,
+                    <span class="dt">sens =</span> <span class="st">&quot;&gt;&quot;</span>,
+                    <span class="dt">threshold =</span> <span class="kw">quantile</span>(vt.f.rf$difft, <span class="kw">seq</span>(.<span class="dv">5</span>, .<span class="dv">8</span>, .<span class="dv">1</span>)),
+                    <span class="dt">maxdepth =</span> <span class="dv">3</span>,
+                    <span class="dt">cp =</span> <span class="dv">0</span>,
+                    <span class="dt">maxcompete =</span> <span class="dv">2</span>) 
+<span class="co"># tr.class is a list if threshold is a vectoor</span>
+<span class="kw">class</span>(tr.class)
+## [1] &quot;list&quot;
+<span class="co"># acce trees with treeXX</span>
+<span class="kw">class</span>(tr.class$tree1)
+## [1] &quot;VT.tree.class&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;aVirtualTwins&quot;</code></pre>
+</div>
+<div id="regression" class="section level2">
+<h2>Regression</h2>
+<p>Use regression tree to explain <span class="math">\(Z\)</span> by covariables <span class="math">\(X\)</span>. Then some leafs have predicted <span class="math">\(Z_i\)</span> greater than the threshold <span class="math">\(c\)</span> (if <span class="math">\(sens\)</span> is “&gt;”), and it defines which covariables explain <span class="math">\(Z\)</span>.</p>
+<p>The function to use is <code>vt.tree(&quot;reg&quot;, ...)</code>. It takes same parameters than classification mehod.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize regression tree</span>
+tr.reg &lt;-<span class="st"> </span><span class="kw">vt.tree</span>(<span class="st">&quot;reg&quot;</span>,
+                  <span class="dt">vt.difft =</span> vt.f.rf,
+                  <span class="dt">sens =</span> <span class="st">&quot;&gt;&quot;</span>,
+                  <span class="dt">threshold =</span> <span class="kw">quantile</span>(vt.f.rf$difft, <span class="kw">seq</span>(.<span class="dv">5</span>, .<span class="dv">8</span>, .<span class="dv">1</span>)))
+<span class="co"># tr.class is a list if threshold is a vectoor</span>
+<span class="kw">class</span>(tr.reg)
+## [1] &quot;list&quot;
+<span class="co"># access trees with treeXX</span>
+<span class="kw">class</span>(tr.reg$tree1)
+## [1] &quot;VT.tree.reg&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;aVirtualTwins&quot;</code></pre>
+<hr />
+</div>
+</div>
+<div id="subgroups-and-results" class="section level1">
+<h1>Subgroups and results</h1>
+<p>Once trees have been computed, you surely want to see what are the subgroups. This package provides a wrapper function of intern methods of <code>VT.tree</code> class : <code>vt.subgroups()</code>.</p>
+<p>This function takes in argument :</p>
+<ul>
+<li><code>vt.tree</code> : object or list of class <code>VT.tree</code>. Return of the <code>vt.tree()</code> function.</li>
+<li><code>only.leaf</code> : logical. Set <code>TRUE</code> (default) to visualize only terminal nodes.</li>
+<li><code>only.fav</code> : logical. Set <code>TRUE</code> (default) to visualize only class 1 nodes. (<span class="math">\(\hat{A}\)</span>)</li>
+<li><code>tables</code> : logical. Set <code>FALSE</code> (default) to prevent tables of incidences from being printed.</li>
+<li><code>verbose</code> : logical. Set <code>FALSE</code> (default) to prevent detailed stuffs from being printed.</li>
+<li><code>compete</code> : logical. Set <code>TRUE</code> to print competitors rules thanks to competitors split. <code>FALSE</code> is default value.</li>
+</ul>
+<p>If <code>vt.tree</code> is a list, unique subgroups are printed.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use tr.class computed previously</span>
+vt.sbgrps &lt;-<span class="st"> </span><span class="kw">vt.subgroups</span>(tr.class)
+<span class="co"># print tables with knitr package</span>
+<span class="kw">library</span>(knitr)
+knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Subgroup</th>
+<th align="left">Subgroup size</th>
+<th align="left">Treatement event rate</th>
+<th align="left">Control event rate</th>
+<th align="left">Treatment sample size</th>
+<th align="left">Control sample size</th>
+<th align="right">RR (resub)</th>
+<th align="right">RR (snd)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">tree1.11</td>
+<td align="left">PRAPACHE&lt; 26.5 &amp; AGE&gt;=51.74 &amp; BLGCS&lt; 11.5</td>
+<td align="left">49</td>
+<td align="left">0.485</td>
+<td align="left">0.375</td>
+<td align="left">33</td>
+<td align="left">16</td>
+<td align="right">1.293</td>
+<td align="right">1.043</td>
+</tr>
+<tr class="even">
+<td align="left">tree1.3</td>
+<td align="left">PRAPACHE&gt;=26.5</td>
+<td align="left">157</td>
+<td align="left">0.752</td>
+<td align="left">0.327</td>
+<td align="left">105</td>
+<td align="left">52</td>
+<td align="right">2.300</td>
+<td align="right">1.865</td>
+</tr>
+<tr class="odd">
+<td align="left">tree2.11</td>
+<td align="left">PRAPACHE&lt; 26.5 &amp; BLGCS&lt; 10.5 &amp; AGE&gt;=64.68</td>
+<td align="left">14</td>
+<td align="left">0.7</td>
+<td align="left">0.5</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="right">1.400</td>
+<td align="right">1.200</td>
+</tr>
+<tr class="even">
+<td align="left">tree2.13</td>
+<td align="left">PRAPACHE&gt;=26.5 &amp; AGE&lt; 51.74 &amp; BLLCREAT&lt; 2.3</td>
+<td align="left">21</td>
+<td align="left">0.375</td>
+<td align="left">0.6</td>
+<td align="left">16</td>
+<td align="left">5</td>
+<td align="right">0.625</td>
+<td align="right">1.506</td>
+</tr>
+<tr class="odd">
+<td align="left">tree2.7</td>
+<td align="left">PRAPACHE&gt;=26.5 &amp; AGE&gt;=51.74</td>
+<td align="left">120</td>
+<td align="left">0.897</td>
+<td align="left">0.31</td>
+<td align="left">78</td>
+<td align="left">42</td>
+<td align="right">2.894</td>
+<td align="right">2.007</td>
+</tr>
+<tr class="even">
+<td align="left">tree3.13</td>
+<td align="left">PRAPACHE&gt;=26.5 &amp; AGE&lt; 51.74 &amp; BLLBILI&gt;=2.95</td>
+<td align="left">13</td>
+<td align="left">0.333</td>
+<td align="left">0.25</td>
+<td align="left">9</td>
+<td align="left">4</td>
+<td align="right">1.332</td>
+<td align="right">1.564</td>
+</tr>
+<tr class="odd">
+<td align="left">tree4</td>
+<td align="left">PRAPACHE&gt;=26.5 &amp; AGE&gt;=51.74 &amp; PRAPACHE&gt;=28.5</td>
+<td align="left">89</td>
+<td align="left">0.915</td>
+<td align="left">0.333</td>
+<td align="left">59</td>
+<td align="left">30</td>
+<td align="right">2.748</td>
+<td align="right">2.087</td>
+</tr>
+</tbody>
+</table>
+<p>You can plot one tree with package <code>rpart.plot</code></p>
+<pre><code>## Loading required package: rpart</code></pre>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>If you want to see competitors split :</p>
+<pre class="sourceCode r"><code class="sourceCode r">tr.class$tree2$<span class="kw">createCompetitors</span>()
+<span class="kw">head</span>(tr.class$tree2$competitors)
+##    count ncat    improve  index      var path          string
+## 1    470   -1 119.987009 26.500 PRAPACHE    2 PRAPACHE &lt; 26.5
+## 2    470    1  37.018261 10.500    BLGCS    2   BLGCS &gt;= 10.5
+## 3    470   -1  30.491058 61.671      AGE    2    AGE &lt; 61.671
+## 9    313    1   6.349646 10.500    BLGCS    4   BLGCS &gt;= 10.5
+## 10   313   -1   5.075061 61.671      AGE    4    AGE &lt; 61.671
+## 11   313   -1   2.027870 19.500 PRAPACHE    4 PRAPACHE &lt; 19.5</code></pre>
+<p>If you want to print incidence of a subgroup :</p>
+<pre class="sourceCode r"><code class="sourceCode r">vt.o$<span class="kw">getIncidences</span>(<span class="st">&quot;PRAPACHE &gt;= 26 &amp; AGE &gt;= 52&quot;</span>)
+## $table.selected
+## $table.selected$table
+##            trt
+## resp        0     1   sum  
+##   0         30    18  48   
+##   1         15    72  87   
+##   sum       45    90  135  
+##   Incidence 0.333 0.8 0.644
+## 
+## $table.selected$rr
+## [1] 2.402402
+## 
+## 
+## $table.not.selected
+## $table.not.selected$table
+##            trt
+## resp        0     1     sum  
+##   0         71    170   241  
+##   1         37    57    94   
+##   sum       108   227   335  
+##   Incidence 0.343 0.251 0.281
+## 
+## $table.not.selected$rr
+## [1] 0.7317784
+<span class="co"># or</span>
+<span class="co"># tr.class$tree2$getIncidences(&quot;PRAPACHE &gt;= 26 &amp; AGE &gt;= 52&quot;)</span></code></pre>
+<p>If you want to get infos about the tree</p>
+<pre class="sourceCode r"><code class="sourceCode r">tr.class$tree2$<span class="kw">getInfos</span>()
+## 
+## Threshold = 0.0675
+## Delta = 0.0671
+## Sens : &gt;
+## Size of Ahat : 155
+<span class="co"># access Ahat</span>
+<span class="co"># tr.class$tree2$Ahat</span></code></pre>
+<p>You can re-run rpart computation:</p>
+<pre class="sourceCode r"><code class="sourceCode r">tr.class$tree2$<span class="kw">run</span>(<span class="dt">maxdepth =</span> <span class="dv">2</span>)</code></pre>
+<p>Type <code>?VT.tree</code> for details.</p>
+<hr />
+</div>
+<div id="questions" class="section level1">
+<h1>Questions</h1>
+<p>This vignette is a bit messy right now, therefore feel free to ask anything to the repository issue reports :</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://github.com/prise6/aVirtualTwins" class="uri">https://github.com/prise6/aVirtualTwins</a></li>
+<li>read documentation with <code>?aVirtualTwins</code></li>
+</ol>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
