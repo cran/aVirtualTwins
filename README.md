@@ -1,5 +1,7 @@
 # aVirtualTwins
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/aVirtualTwins)](https://cran.r-project.org/package=aVirtualTwins)
+
 An adaptation of VirtualTwins method from [Foster, J. C., Taylor, J. M.G. and Ruberg, S. J. (2011)](http://onlinelibrary.wiley.com/doi/10.1002/sim.4322/abstract)
 
 VirtualTwins is a method of subgroup identification from randomized clinical trial data.
@@ -60,11 +62,17 @@ Of course, subgroup identification in general with two treatment and severals gr
 
 ## Help & Documentation
 
+See wiki tab.
+
+Or:
+
 ``` r
 vignette("full-example", package = "aVirtualTwins")
 ```
 
-Here's a link to my intern dissertation (french version) [La recher de sous-groupes par Virtual Twins](http://upload.timfaitsoncinema.fr/p/2016-09/57e6a8ff.pdf) (parts V & VI).
+Or:
+
+Here's a link to my intern dissertation (french version) [La recherche de sous-groupes par Virtual Twins](http://upload.timfaitsoncinema.fr/p/2016-09/57e6a8ff.pdf) (parts V & VI).
 
 
 ## Install
@@ -82,9 +90,9 @@ library(aVirtualTwins)
 ## To-do list
 
 * Link to my simulation
-* Submit to CRAN
+* ~~Submit to CRAN~~
 * Use R6 for perfs issues
-* Vignette on-line
+* ~~Vignette on-line~~
 
 
 ## News

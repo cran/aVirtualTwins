@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -12,7 +12,7 @@
 
 <meta name="author" content="Francois Vieille" />
 
-<meta name="date" content="2016-10-09" />
+<meta name="date" content="2018-02-03" />
 
 <title>Virtual Twins Examples</title>
 
@@ -20,28 +20,46 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 
 
-<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%7D%0Apre%20%7B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -52,23 +70,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 <h1 class="title toc-ignore">Virtual Twins Examples</h1>
 <h4 class="author"><em>Francois Vieille</em></h4>
-<h4 class="date"><em>2016-10-09</em></h4>
+<h4 class="date"><em>2018-02-03</em></h4>
 
 
 
-<div id="contents" class="section level1">
-<h1>Contents</h1>
-<ol style="list-style-type: decimal">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#quick-preview">Quick preview</a></li>
-<li><a href="#sepsis-dataset">Sepsis dataset</a></li>
-<li><a href="#create-object-virtualtwins">Create object virtual twins</a></li>
-<li><a href="#step-1-compute-hatp_1i-and-hatp_0i">Step 1 : compute probabilities</a></li>
-<li><a href="#step-2-estimate-a-regression-or-classification-tree">Step 2 : Estimate a decision tree</a></li>
-<li><a href="#subgroups-and-results">Subgroups and results</a></li>
-<li><a href="#questions">Questions</a></li>
-</ol>
-</div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>The goal of this vignette is to show most of all possibilies with <em>aVT</em> (for <em>aVirtualTwins</em> meaning <em>a</em>daptation of <em>Virtual Twins</em> method) package.</p>
@@ -82,11 +87,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>Quick preview</h1>
 <div id="dataset" class="section level2">
 <h2> Dataset</h2>
-<p>Data used in <em>VT</em> are modelized by <span class="math">\(\left\{Y, T, X_1, \ldots, X_{p-2}\right\}\)</span>. <span class="math">\(p\)</span> is the number of variables.</p>
+<p>Data used in <em>VT</em> are modelized by <span class="math inline">\(\left\{Y, T, X_1, \ldots, X_{p-2}\right\}\)</span>. <span class="math inline">\(p\)</span> is the number of variables.</p>
 <ul>
-<li><span class="math">\(Y\)</span> is a binary outcome. In R, <span class="math">\(Y\)</span> is a <code>factor</code>. Second level of this factor will be the desirable event. (<span class="math">\(Y=1\)</span>)</li>
-<li><span class="math">\(T\)</span> is treatment variable, <span class="math">\(T=1\)</span> means <em>active treatement</em>, <span class="math">\(T=0\)</span> means <em>control treatment</em>. In R, <span class="math">\(T\)</span> is numeric.</li>
-<li><span class="math">\(X_i\)</span> is covariables, <span class="math">\(X_i\)</span> can be categorical, continous, binary.</li>
+<li><span class="math inline">\(Y\)</span> is a binary outcome. In R, <span class="math inline">\(Y\)</span> is a <code>factor</code>. Second level of this factor will be the desirable event. (<span class="math inline">\(Y=1\)</span>)</li>
+<li><span class="math inline">\(T\)</span> is treatment variable, <span class="math inline">\(T=1\)</span> means <em>active treatement</em>, <span class="math inline">\(T=0\)</span> means <em>control treatment</em>. In R, <span class="math inline">\(T\)</span> is numeric.</li>
+<li><span class="math inline">\(X_i\)</span> is covariables, <span class="math inline">\(X_i\)</span> can be categorical, continous, binary.</li>
 </ul>
 <p><strong>NOTE:</strong> if you run <em>VT</em> with interactions, categorical covariables must be transformed into binary variables.</p>
 <p>Type <code>?formatRCTDataset</code> for details.</p>
@@ -95,30 +100,35 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="method" class="section level2">
 <h2>Method</h2>
 <p><em>VT</em> is a two steps method but with many possibilities</p>
-<p>let <span class="math">\(\hat{P_{1i}} = P(Y_i = 1|T_i = 1, X_i)\)</span><br />let <span class="math">\(\hat{P_{0i}} = P(Y_i = 1|T_i = 0, X_i)\)</span><br />let <span class="math">\(X = \left\{X_1, \ldots, X_{p-2}\right\}\)</span></p>
+<p>let <span class="math inline">\(\hat{P_{1i}} = P(Y_i = 1|T_i = 1, X_i)\)</span><br />
+let <span class="math inline">\(\hat{P_{0i}} = P(Y_i = 1|T_i = 0, X_i)\)</span><br />
+let <span class="math inline">\(X = \left\{X_1, \ldots, X_{p-2}\right\}\)</span></p>
 <div id="first-step" class="section level3">
 <h3>First Step</h3>
 <ul>
-<li>Grow a random forest with data <span class="math">\(\left\{Y, T, X \right\}\)</span>.<br /></li>
-<li>Grow a random forest with interaction treatement / covariable, i.e. <span class="math">\(\left\{Y, T, X, XI(T_i=0), XI(T_i=1)\right\}\)</span></li>
+<li>Grow a random forest with data <span class="math inline">\(\left\{Y, T, X \right\}\)</span>.<br />
+</li>
+<li>Grow a random forest with interaction treatement / covariable, i.e. <span class="math inline">\(\left\{Y, T, X, XI(T_i=0), XI(T_i=1)\right\}\)</span></li>
 <li>Grow two random forests, one for each treatement:
 <ul>
-<li>The first with data <span class="math">\(\left\{Y, X \right\}\)</span> where <span class="math">\(T_i = 0\)</span><br /></li>
-<li>The second with data <span class="math">\(\left\{Y, X \right\}\)</span> where <span class="math">\(T_i = 1\)</span><br /></li>
+<li>The first with data <span class="math inline">\(\left\{Y, X \right\}\)</span> where <span class="math inline">\(T_i = 0\)</span><br />
+</li>
+<li>The second with data <span class="math inline">\(\left\{Y, X \right\}\)</span> where <span class="math inline">\(T_i = 1\)</span><br />
+</li>
 </ul></li>
 <li>Build your own model</li>
 </ul>
-<p>From one of these methods you can estimate <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span>.</p>
+<p>From one of these methods you can estimate <span class="math inline">\(\hat{P_{1i}}\)</span> and <span class="math inline">\(\hat{P_{0i}}\)</span>.</p>
 <p>Related functions/classes in aVirtualTwins package : <code>VT.difft()</code>, <code>vt.forest()</code>.</p>
 </div>
 <div id="second-step" class="section level3">
 <h3>Second Step</h3>
-<p>Define <span class="math">\(Z_i = \hat{P_{1i}} - \hat{P_{0i}}\)</span></p>
+<p>Define <span class="math inline">\(Z_i = \hat{P_{1i}} - \hat{P_{0i}}\)</span></p>
 <ul>
-<li>Use regression tree to explain <span class="math">\(Z\)</span> by covariables <span class="math">\(X\)</span>. Then subjects with predicted <span class="math">\(Z_i\)</span> greater than some threshold <span class="math">\(c\)</span> are considered to define a subgroup.</li>
-<li>Use classification tree on new variable <span class="math">\(Z^{*}\)</span> defined by <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &gt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise.</li>
+<li>Use regression tree to explain <span class="math inline">\(Z\)</span> by covariables <span class="math inline">\(X\)</span>. Then subjects with predicted <span class="math inline">\(Z_i\)</span> greater than some threshold <span class="math inline">\(c\)</span> are considered to define a subgroup.</li>
+<li>Use classification tree on new variable <span class="math inline">\(Z^{*}\)</span> defined by <span class="math inline">\(Z^{*}_i=1\)</span> if <span class="math inline">\(Z_i &gt; c\)</span> and <span class="math inline">\(Z^{*}_i=0\)</span> otherwise.</li>
 </ul>
-<p>The idea is to identify which covariable from <span class="math">\(X\)</span> described variation of <span class="math">\(Z\)</span>.</p>
+<p>The idea is to identify which covariable from <span class="math inline">\(X\)</span> described variation of <span class="math inline">\(Z\)</span>.</p>
 <p>Related function in aVirtualTwins package : <code>vt.tree()</code>.</p>
 <hr />
 </div>
@@ -153,25 +163,25 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="create-object-virtualtwins" class="section level1">
 <h1>Create object VirtualTwins</h1>
 <p>In order to begin the two steps of <em>VT</em> method, aVirtualTwins package needs to be initialized with <code>vt.data()</code> function. type <code>?vt.data</code> for more details.</p>
-<p><strong>NOTE:</strong> if running VT with interactions between <span class="math">\(T\)</span> and <span class="math">\(X\)</span>, set <code>interactions = TRUE</code>.</p>
+<p><strong>NOTE:</strong> if running VT with interactions between <span class="math inline">\(T\)</span> and <span class="math inline">\(X\)</span>, set <code>interactions = TRUE</code>.</p>
 <p>Code of <code>vt.data()</code> :</p>
-<pre class="sourceCode r"><code class="sourceCode r">vt.data &lt;-<span class="st"> </span>function(dataset, outcome.field, treatment.field, <span class="dt">interactions =</span> <span class="ot">TRUE</span>, ...){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vt.data &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, outcome.field, treatment.field, <span class="dt">interactions =</span> <span class="ot">TRUE</span>, ...){
   data &lt;-<span class="st"> </span><span class="kw">formatRCTDataset</span>(dataset, outcome.field, treatment.field, <span class="dt">interactions =</span> <span class="ot">TRUE</span>)
   <span class="kw">VT.object</span>(<span class="dt">data =</span> data, ...)
-}</code></pre>
+}</code></pre></div>
 <p><strong>Example with Sepsis</strong></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load library VT</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load library VT</span>
 <span class="kw">library</span>(aVirtualTwins)
 <span class="co"># load data sepsis</span>
 <span class="kw">data</span>(sepsis)
 <span class="co"># initialize VT.object</span>
 vt.o &lt;-<span class="st"> </span><span class="kw">vt.data</span>(sepsis, <span class="st">&quot;survival&quot;</span>, <span class="st">&quot;THERAPY&quot;</span>, <span class="ot">TRUE</span>)
-## &quot;1&quot; will be the favorable outcome</code></pre>
-<p>1 will be the favorable outcome because 1 is the second level of <code>&quot;survival&quot;</code> column. It means that <span class="math">\(P(Y=1)\)</span> is the probability of interest. Anyway, it’s still possible to compute <span class="math">\(P(Y=0)\)</span>.</p>
+## &quot;1&quot; will be the favorable outcome</code></pre></div>
+<p>1 will be the favorable outcome because 1 is the second level of <code>&quot;survival&quot;</code> column. It means that <span class="math inline">\(P(Y=1)\)</span> is the probability of interest. Anyway, it’s still possible to compute <span class="math inline">\(P(Y=0)\)</span>.</p>
 <p><strong>Quick example</strong></p>
 <p><em>Sepsis</em> does not have any categorical variable, following example show how <code>vt.data</code> deals with categorical values depending on <code>interactions</code> parameter</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creation of categorical variable</span>
-cat.x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">5</span>, (<span class="kw">nrow</span>(sepsis))/<span class="dv">5</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creation of categorical variable</span>
+cat.x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, (<span class="kw">nrow</span>(sepsis))<span class="op">/</span><span class="dv">5</span>)
 cat.x &lt;-<span class="st"> </span><span class="kw">as.factor</span>(cat.x)
 sepsis.tmp &lt;-<span class="st"> </span><span class="kw">cbind</span>(sepsis, cat.x)
 vt.o.tmp &lt;-<span class="st"> </span><span class="kw">vt.data</span>(sepsis.tmp, <span class="st">&quot;survival&quot;</span>, <span class="st">&quot;THERAPY&quot;</span>, <span class="ot">TRUE</span>)
@@ -181,12 +191,12 @@ vt.o.tmp &lt;-<span class="st"> </span><span class="kw">vt.data</span>(sepsis.tm
 ## Dummy variable cat.x_2 created 
 ## Dummy variable cat.x_3 created 
 ## Dummy variable cat.x_4 created 
-## Dummy variable cat.x_5 created</code></pre>
+## Dummy variable cat.x_5 created</code></pre></div>
 <p>Dummies variables are created for each category of <code>cat.x</code> variable. And <code>cat.x</code> is removed from dataset.</p>
 <hr />
 </div>
 <div id="step-1-compute-hatp_1i-and-hatp_0i" class="section level1">
-<h1>Step 1 : compute <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span></h1>
+<h1>Step 1 : compute <span class="math inline">\(\hat{P_{1i}}\)</span> and <span class="math inline">\(\hat{P_{0i}}\)</span></h1>
 <p>As described earlier, step 1 can be done via differents ways</p>
 <div id="simple-random-forest" class="section level2">
 <h2>Simple Random Forest</h2>
@@ -201,7 +211,7 @@ vt.o.tmp &lt;-<span class="st"> </span><span class="kw">vt.data</span>(sepsis.tm
 <li><code>...</code> : options to <code>randomForest()</code> function</li>
 </ul>
 <p><strong>with <code>randomForest</code></strong></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use randomForest::randomForest()</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use randomForest::randomForest()</span>
 <span class="kw">library</span>(randomForest, <span class="dt">verbose =</span> F)
 ## randomForest 4.6-12
 ## Type rfNews() to see new features/changes/bug fixes.
@@ -210,16 +220,16 @@ vt.o.tmp &lt;-<span class="st"> </span><span class="kw">vt.data</span>(sepsis.tm
 <span class="co"># Fit rf model </span>
 <span class="co"># default params</span>
 <span class="co"># set interactions to TRUE if using interaction between T and X</span>
-model.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o$<span class="kw">getX</span>(<span class="dt">interactions =</span> T),
-                         <span class="dt">y =</span> vt.o$<span class="kw">getY</span>(),
+model.rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o<span class="op">$</span><span class="kw">getX</span>(<span class="dt">interactions =</span> T),
+                         <span class="dt">y =</span> vt.o<span class="op">$</span><span class="kw">getY</span>(),
                          <span class="dt">ntree =</span> <span class="dv">500</span>)
 <span class="co"># initialize VT.forest.one</span>
 vt.f.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">model =</span> model.rf, <span class="dt">interactions =</span> T)
 ### or you can use randomForest inside vt.forest()
-vt.f.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">interactions =</span> T, <span class="dt">ntree =</span> <span class="dv">500</span>)</code></pre>
+vt.f.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">interactions =</span> T, <span class="dt">ntree =</span> <span class="dv">500</span>)</code></pre></div>
 <p><strong>with <code>party</code></strong></p>
 <p><code>cforest()</code> can be usefull however computing time is really long. I think there is an issue when giving <em>cforest object</em> in Reference Class parameter. Need to fix it.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># # use randomForest::randomForest()</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># # use randomForest::randomForest()</span>
 <span class="co"># library(party, verbose = F)</span>
 <span class="co"># # Reproducibility</span>
 <span class="co"># set.seed(123)</span>
@@ -228,18 +238,18 @@ vt.f.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span cl
 <span class="co"># # set interactions to TRUE if using interaction between T and X</span>
 <span class="co"># model.cf &lt;- cforest(formula = vt.o$getFormula(), data = vt.o$getData(interactions = T))</span>
 <span class="co"># # initialize VT.forest.one</span>
-<span class="co"># vt.f.cf &lt;- vt.forest(&quot;one&quot;, vt.data = vt.o, model = model.cf)</span></code></pre>
+<span class="co"># vt.f.cf &lt;- vt.forest(&quot;one&quot;, vt.data = vt.o, model = model.cf)</span></code></pre></div>
 <p><strong>with <code>caret</code></strong></p>
 <p>Using <code>caret</code> can be usefull to deal with parallel computing for example.</p>
 <p><strong>NOTE:</strong> For <code>caret</code> levels of outcome can’t be 0, so i’ll change levels name into “n”/“y”</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Copy new object</span>
-vt.o.tr &lt;-<span class="st"> </span>vt.o$<span class="kw">copy</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Copy new object</span>
+vt.o.tr &lt;-<span class="st"> </span>vt.o<span class="op">$</span><span class="kw">copy</span>()
 <span class="co"># Change levels</span>
-tmp &lt;-<span class="st"> </span><span class="kw">ifelse</span>(vt.o.tr$data$survival ==<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;n&quot;</span>)
-vt.o.tr$data$survival &lt;-<span class="st"> </span><span class="kw">as.factor</span>(tmp)
+tmp &lt;-<span class="st"> </span><span class="kw">ifelse</span>(vt.o.tr<span class="op">$</span>data<span class="op">$</span>survival <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;n&quot;</span>)
+vt.o.tr<span class="op">$</span>data<span class="op">$</span>survival &lt;-<span class="st"> </span><span class="kw">as.factor</span>(tmp)
 <span class="kw">rm</span>(tmp)
 <span class="co"># Check new data to be sure</span>
-<span class="kw">formatRCTDataset</span>(vt.o.tr$data, <span class="st">&quot;survival&quot;</span>, <span class="st">&quot;THERAPY&quot;</span>)
+<span class="kw">formatRCTDataset</span>(vt.o.tr<span class="op">$</span>data, <span class="st">&quot;survival&quot;</span>, <span class="st">&quot;THERAPY&quot;</span>)
 ## &quot;y&quot; will be the favorable outcome
 <span class="co"># use caret::train()</span>
 <span class="kw">library</span>(caret, <span class="dt">verbose =</span> F)
@@ -254,13 +264,13 @@ vt.o.tr$data$survival &lt;-<span class="st"> </span><span class="kw">as.factor</
 <span class="kw">set.seed</span>(<span class="dv">123</span>)
 <span class="co"># fit train model</span>
 fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">classProbs =</span> T, <span class="dt">method =</span> <span class="st">&quot;none&quot;</span>)
-model.tr &lt;-<span class="st"> </span><span class="kw">train</span>(<span class="dt">x =</span> vt.o.tr$<span class="kw">getX</span>(<span class="dt">interactions =</span> T),
-                  <span class="dt">y =</span> vt.o.tr$<span class="kw">getY</span>(),
+model.tr &lt;-<span class="st"> </span><span class="kw">train</span>(<span class="dt">x =</span> vt.o.tr<span class="op">$</span><span class="kw">getX</span>(<span class="dt">interactions =</span> T),
+                  <span class="dt">y =</span> vt.o.tr<span class="op">$</span><span class="kw">getY</span>(),
                   <span class="dt">method =</span> <span class="st">&quot;rf&quot;</span>,
                   <span class="dt">tuneGrid =</span> <span class="kw">data.frame</span>(<span class="dt">mtry =</span> <span class="dv">5</span>),
                   <span class="dt">trControl =</span> fitControl)
 <span class="co"># initialize VT.forest.one</span>
-vt.f.tr &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, vt.o.tr, <span class="dt">model =</span> model.tr)</code></pre>
+vt.f.tr &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;one&quot;</span>, vt.o.tr, <span class="dt">model =</span> model.tr)</code></pre></div>
 </div>
 <div id="double-random-forest" class="section level2">
 <h2>Double Random Forest</h2>
@@ -269,17 +279,17 @@ vt.f.tr &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span cl
 <ul>
 <li><code>forest.type</code> : You have to set is to <code>&quot;double&quot;</code></li>
 <li><code>vt.data</code> : return of <code>vt.data()</code> function</li>
-<li><code>model_trt1</code> : a random forest model for <span class="math">\(T=1\)</span> (this argument has to be specified)</li>
-<li><code>model_trt0</code> : a random forest model for <span class="math">\(T=0\)</span> (this argument has to be specified)</li>
+<li><code>model_trt1</code> : a random forest model for <span class="math inline">\(T=1\)</span> (this argument has to be specified)</li>
+<li><code>model_trt0</code> : a random forest model for <span class="math inline">\(T=0\)</span> (this argument has to be specified)</li>
 </ul>
 <p><strong>NOTE:</strong> use <code>trt</code> parameter in <code>VT.object::getX()</code> or <code>VT.object::getY()</code> methods to obtain part of data depending on treatment. See following example.</p>
 <p><strong>with <code>randomForest</code></strong></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grow RF for T = 1</span>
-model.rf.trt1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o$<span class="kw">getX</span>(<span class="dt">trt =</span> <span class="dv">1</span>),
-                              <span class="dt">y =</span> vt.o$<span class="kw">getY</span>(<span class="dt">trt =</span> <span class="dv">1</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grow RF for T = 1</span>
+model.rf.trt1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o<span class="op">$</span><span class="kw">getX</span>(<span class="dt">trt =</span> <span class="dv">1</span>),
+                              <span class="dt">y =</span> vt.o<span class="op">$</span><span class="kw">getY</span>(<span class="dt">trt =</span> <span class="dv">1</span>))
 <span class="co"># grow RF for T = 0</span>
-model.rf.trt0 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o$<span class="kw">getX</span>(<span class="dt">trt =</span> <span class="dv">0</span>),
-                              <span class="dt">y =</span> vt.o$<span class="kw">getY</span>(<span class="dt">trt =</span> <span class="dv">0</span>))
+model.rf.trt0 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">x =</span> vt.o<span class="op">$</span><span class="kw">getX</span>(<span class="dt">trt =</span> <span class="dv">0</span>),
+                              <span class="dt">y =</span> vt.o<span class="op">$</span><span class="kw">getY</span>(<span class="dt">trt =</span> <span class="dv">0</span>))
 <span class="co"># initialize VT.forest.double()</span>
 vt.doublef.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;double&quot;</span>,
                            <span class="dt">vt.data =</span> vt.o, 
@@ -288,41 +298,41 @@ vt.doublef.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<s
 ### Or you can use randomForest() inside
 vt.doublef.rf &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;double&quot;</span>,
                            <span class="dt">vt.data =</span> vt.o,
-                           <span class="dt">ntree =</span> <span class="dv">200</span>)</code></pre>
+                           <span class="dt">ntree =</span> <span class="dv">200</span>)</code></pre></div>
 <p>Follow the same structure for <code>caret</code> or <code>cforest</code> models.</p>
 </div>
 <div id="k-fold-random-forest" class="section level2">
 <h2>K Fold Random Forest</h2>
 <p>This idea is taken from <em>method 3</em> of Jared Foster paper :</p>
 <blockquote>
-<p>A modification of [previous methods] is to obtain <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span> via cross-validation. In this méthod the specific data for subject <span class="math">\(i\)</span> is not used to obtain <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span>. Using k-fold cross-validation, we apply random forest regression approach to <span class="math">\(\frac{k-1}{k}\)</span> of the data and use the resulting predictor to obtain estimates of <span class="math">\(P_{1i}\)</span> and <span class="math">\(P_{0i}\)</span> for the remaining <span class="math">\(\frac{1}{k}\)</span> of the observations. This is repeated <span class="math">\(k\)</span> times.</p>
+<p>A modification of [previous methods] is to obtain <span class="math inline">\(\hat{P_{1i}}\)</span> and <span class="math inline">\(\hat{P_{0i}}\)</span> via cross-validation. In this méthod the specific data for subject <span class="math inline">\(i\)</span> is not used to obtain <span class="math inline">\(\hat{P_{1i}}\)</span> and <span class="math inline">\(\hat{P_{0i}}\)</span>. Using k-fold cross-validation, we apply random forest regression approach to <span class="math inline">\(\frac{k-1}{k}\)</span> of the data and use the resulting predictor to obtain estimates of <span class="math inline">\(P_{1i}\)</span> and <span class="math inline">\(P_{0i}\)</span> for the remaining <span class="math inline">\(\frac{1}{k}\)</span> of the observations. This is repeated <span class="math inline">\(k\)</span> times.</p>
 </blockquote>
 <p>To use this approach, use <code>vt.forest(&quot;fold&quot;, ...)</code>. This class takes in argument :</p>
 <ul>
 <li><code>forest.type</code> : it has to be set to <code>&quot;fold&quot;</code></li>
 <li><code>vt.data</code> : return of <code>vt.data()</code> function</li>
-<li><code>fold</code> : number of fold (e.g. <span class="math">\(5\)</span>)</li>
-<li><code>ratio</code> : Control of sampsize balance. <code>ratio</code> of <span class="math">\(2\)</span> means that there 2 times le highest level compared to the other. “Highest” means the level with larger observations. It’s in test.</li>
+<li><code>fold</code> : number of fold (e.g. <span class="math inline">\(5\)</span>)</li>
+<li><code>ratio</code> : Control of sampsize balance. <code>ratio</code> of <span class="math inline">\(2\)</span> means that there 2 times le highest level compared to the other. “Highest” means the level with larger observations. It’s in test.</li>
 <li><code>interactions</code> : Logical. If <code>TRUE</code>, interactions between covariables and treatments are used. <code>FALSE</code> otherwise.</li>
 <li><code>...</code> : <code>randomForest()</code> function options</li>
 </ul>
 <p><strong>NOTE:</strong> This function use only <code>randomForest</code> package.</p>
-<pre class="sourceCode r"><code class="sourceCode r">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># initialize k-fold RF</span>
 <span class="co"># you can use randomForest options</span>
-model.fold &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;fold&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">fold =</span> <span class="dv">5</span>, <span class="dt">ratio =</span> <span class="dv">1</span>, <span class="dt">interactions =</span> T, <span class="dt">ntree =</span> <span class="dv">200</span>)</code></pre>
+model.fold &lt;-<span class="st"> </span><span class="kw">vt.forest</span>(<span class="st">&quot;fold&quot;</span>, <span class="dt">vt.data =</span> vt.o, <span class="dt">fold =</span> <span class="dv">5</span>, <span class="dt">ratio =</span> <span class="dv">1</span>, <span class="dt">interactions =</span> T, <span class="dt">ntree =</span> <span class="dv">200</span>)</code></pre></div>
 </div>
 <div id="build-your-own-model" class="section level2">
 <h2>Build Your Own Model</h2>
-<p>Random Forests are not the only models you can use to compute <span class="math">\(\hat{P_{1i}}\)</span> and <span class="math">\(\hat{P_{0i}}\)</span>. Any prediction model can be used, as logitic regression, boosting …</p>
+<p>Random Forests are not the only models you can use to compute <span class="math inline">\(\hat{P_{1i}}\)</span> and <span class="math inline">\(\hat{P_{0i}}\)</span>. Any prediction model can be used, as logitic regression, boosting …</p>
 <p>Anyway, aVirtualTwins package can be used. To do so, you can use <code>VT.difft()</code> class. It is important to note this the parent class of all “forests” classes. It takes in argument :</p>
 <ul>
 <li><code>vt.object</code> : return of <code>vt.data()</code> function</li>
-<li><code>twin1</code> : estimate of <span class="math">\(P(Y_{i} = 1 | T = T_{i})\)</span> : meaning response probability under the correct treatment.</li>
-<li><code>twin2</code> : estimate of <span class="math">\(P(Y_{i} = 1 | T = 1-T_{i})\)</span> : meaning response probability under the other treatment.</li>
+<li><code>twin1</code> : estimate of <span class="math inline">\(P(Y_{i} = 1 | T = T_{i})\)</span> : meaning response probability under the correct treatment.</li>
+<li><code>twin2</code> : estimate of <span class="math inline">\(P(Y_{i} = 1 | T = 1-T_{i})\)</span> : meaning response probability under the other treatment.</li>
 <li><code>method</code> : <em>absolute</em> (default), <em>relative</em> or <em>logit</em>. See <code>?VT.difft</code> for details.</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you get twin1 and twin2 by your own method</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you get twin1 and twin2 by your own method</span>
 <span class="co"># here, i'll use random number between 0 and 1 :</span>
 twin1_random &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">470</span>)
 twin2_random &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">470</span>)
@@ -330,40 +340,41 @@ twin2_random &lt;-<span class="st"> </span><span class="kw">runif</span>(<span c
 <span class="co"># then you can initialize VT.difft class : </span>
 model.difft &lt;-<span class="st"> </span><span class="kw">VT.difft</span>(vt.o, <span class="dt">twin1 =</span> twin1_random, <span class="dt">twin2 =</span> twin2_random, <span class="st">&quot;absolute&quot;</span>)
 <span class="co"># compute difference of twins : </span>
-model.difft$<span class="kw">computeDifft</span>()
+model.difft<span class="op">$</span><span class="kw">computeDifft</span>()
 <span class="co"># See results</span>
-<span class="kw">head</span>(model.difft$difft)
-## [1] -0.03599908 -0.44271883 -0.25458624 -0.64201822  0.29347148 -0.02843780
+<span class="kw">head</span>(model.difft<span class="op">$</span>difft)
+## [1]  0.4883771  0.7632997 -0.2555044 -0.1270976 -0.4710701 -0.1426843
 <span class="co"># Graph :</span>
-<span class="co"># hist(model.difft$difft)</span></code></pre>
+<span class="co"># hist(model.difft$difft)</span></code></pre></div>
 <p><strong>NOTE: Also, you can clone repository, write your own child class of <code>VT.difft()</code> AND submit it !</strong></p>
 <hr />
 </div>
 </div>
 <div id="step-2-estimate-a-regression-or-classification-tree" class="section level1">
 <h1>Step 2 : Estimate a Regression or Classification Tree</h1>
-<p>As described in the method, we define <span class="math">\(Z_i = \hat{P_{1i}} - \hat{P_{0i}}\)</span>. It’s the difference in term of response of the active treatments compared to the control treatment. The idea is to try to explain this difference by few covariables.</p>
+<p>As described in the method, we define <span class="math inline">\(Z_i = \hat{P_{1i}} - \hat{P_{0i}}\)</span>. It’s the difference in term of response of the active treatments compared to the control treatment. The idea is to try to explain this difference by few covariables.</p>
 <div id="classification" class="section level2">
 <h2>Classification</h2>
-<p>We define a new variable <span class="math">\(Z^{*}\)</span>, <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &gt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise. Classification tree’s goal is to explain the value <span class="math">\(Z^*=1\)</span>. <span class="math">\(c\)</span> is a threshold given by the user. It’s the threshold for which the difference is “interesting”. One idea is to use quantiles of the <em>difft</em> distribution.</p>
+<p>We define a new variable <span class="math inline">\(Z^{*}\)</span>, <span class="math inline">\(Z^{*}_i=1\)</span> if <span class="math inline">\(Z_i &gt; c\)</span> and <span class="math inline">\(Z^{*}_i=0\)</span> otherwise. Classification tree’s goal is to explain the value <span class="math inline">\(Z^*=1\)</span>. <span class="math inline">\(c\)</span> is a threshold given by the user. It’s the threshold for which the difference is “interesting”. One idea is to use quantiles of the <em>difft</em> distribution.</p>
 <p>To compute a classifiction tree, <code>vt.tree(&quot;class&quot;, ...)</code> is used. Internally, <code>rpart::rpart()</code> is computed. It takes in argument:</p>
 <ul>
 <li><code>tree.type</code> : it has to be set to <code>&quot;class&quot;</code></li>
 <li><code>vt.difft</code> : <code>VT.difft</code> object (return of <code>vt.forest()</code> function)</li>
-<li><code>sens</code> : <code>c(&quot;&gt;&quot;, &quot;&lt;&quot;)</code>. <code>sens</code> corresponds to the way <span class="math">\(Z^{*}\)</span> is defined.
+<li><code>sens</code> : <code>c(&quot;&gt;&quot;, &quot;&lt;&quot;)</code>. <code>sens</code> corresponds to the way <span class="math inline">\(Z^{*}\)</span> is defined.
 <ul>
-<li><code>&quot;&gt;&quot;</code> (default) : <span class="math">\(Z^{*}\)</span>, <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &gt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise.</li>
-<li><code>&quot;&lt;&quot;</code> : <span class="math">\(Z^{*}\)</span>, <span class="math">\(Z^{*}_i=1\)</span> if <span class="math">\(Z_i &lt; c\)</span> and <span class="math">\(Z^{*}_i=0\)</span> otherwise.<br /></li>
+<li><code>&quot;&gt;&quot;</code> (default) : <span class="math inline">\(Z^{*}\)</span>, <span class="math inline">\(Z^{*}_i=1\)</span> if <span class="math inline">\(Z_i &gt; c\)</span> and <span class="math inline">\(Z^{*}_i=0\)</span> otherwise.</li>
+<li><code>&quot;&lt;&quot;</code> : <span class="math inline">\(Z^{*}\)</span>, <span class="math inline">\(Z^{*}_i=1\)</span> if <span class="math inline">\(Z_i &lt; c\)</span> and <span class="math inline">\(Z^{*}_i=0\)</span> otherwise.<br />
+</li>
 </ul></li>
-<li><code>threshold</code> : corresponds to <span class="math">\(c\)</span>, it can be a vector. <span class="math">\(seq(.5, .8, .1)\)</span> by default.</li>
+<li><code>threshold</code> : corresponds to <span class="math inline">\(c\)</span>, it can be a vector. <span class="math inline">\(seq(.5, .8, .1)\)</span> by default.</li>
 <li><code>screening</code> : <code>NULL</code> is default value. If <code>TRUE</code> only covariables in <code>varimp</code> <code>vt.data</code> ’s field is used.</li>
 </ul>
 <p>See <code>?VT.tree</code> for details.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize classification tree</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize classification tree</span>
 tr.class &lt;-<span class="st"> </span><span class="kw">vt.tree</span>(<span class="st">&quot;class&quot;</span>,
                     <span class="dt">vt.difft =</span> vt.f.rf,
                     <span class="dt">sens =</span> <span class="st">&quot;&gt;&quot;</span>,
-                    <span class="dt">threshold =</span> <span class="kw">quantile</span>(vt.f.rf$difft, <span class="kw">seq</span>(.<span class="dv">5</span>, .<span class="dv">8</span>, .<span class="dv">1</span>)),
+                    <span class="dt">threshold =</span> <span class="kw">quantile</span>(vt.f.rf<span class="op">$</span>difft, <span class="kw">seq</span>(.<span class="dv">5</span>, .<span class="dv">8</span>, .<span class="dv">1</span>)),
                     <span class="dt">maxdepth =</span> <span class="dv">3</span>,
                     <span class="dt">cp =</span> <span class="dv">0</span>,
                     <span class="dt">maxcompete =</span> <span class="dv">2</span>) 
@@ -371,28 +382,28 @@ tr.class &lt;-<span class="st"> </span><span class="kw">vt.tree</span>(<span cla
 <span class="kw">class</span>(tr.class)
 ## [1] &quot;list&quot;
 <span class="co"># acce trees with treeXX</span>
-<span class="kw">class</span>(tr.class$tree1)
+<span class="kw">class</span>(tr.class<span class="op">$</span>tree1)
 ## [1] &quot;VT.tree.class&quot;
 ## attr(,&quot;package&quot;)
-## [1] &quot;aVirtualTwins&quot;</code></pre>
+## [1] &quot;aVirtualTwins&quot;</code></pre></div>
 </div>
 <div id="regression" class="section level2">
 <h2>Regression</h2>
-<p>Use regression tree to explain <span class="math">\(Z\)</span> by covariables <span class="math">\(X\)</span>. Then some leafs have predicted <span class="math">\(Z_i\)</span> greater than the threshold <span class="math">\(c\)</span> (if <span class="math">\(sens\)</span> is “&gt;”), and it defines which covariables explain <span class="math">\(Z\)</span>.</p>
+<p>Use regression tree to explain <span class="math inline">\(Z\)</span> by covariables <span class="math inline">\(X\)</span>. Then some leafs have predicted <span class="math inline">\(Z_i\)</span> greater than the threshold <span class="math inline">\(c\)</span> (if <span class="math inline">\(sens\)</span> is “&gt;”), and it defines which covariables explain <span class="math inline">\(Z\)</span>.</p>
 <p>The function to use is <code>vt.tree(&quot;reg&quot;, ...)</code>. It takes same parameters than classification mehod.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize regression tree</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initialize regression tree</span>
 tr.reg &lt;-<span class="st"> </span><span class="kw">vt.tree</span>(<span class="st">&quot;reg&quot;</span>,
                   <span class="dt">vt.difft =</span> vt.f.rf,
                   <span class="dt">sens =</span> <span class="st">&quot;&gt;&quot;</span>,
-                  <span class="dt">threshold =</span> <span class="kw">quantile</span>(vt.f.rf$difft, <span class="kw">seq</span>(.<span class="dv">5</span>, .<span class="dv">8</span>, .<span class="dv">1</span>)))
+                  <span class="dt">threshold =</span> <span class="kw">quantile</span>(vt.f.rf<span class="op">$</span>difft, <span class="kw">seq</span>(.<span class="dv">5</span>, .<span class="dv">8</span>, .<span class="dv">1</span>)))
 <span class="co"># tr.class is a list if threshold is a vectoor</span>
 <span class="kw">class</span>(tr.reg)
 ## [1] &quot;list&quot;
 <span class="co"># access trees with treeXX</span>
-<span class="kw">class</span>(tr.reg$tree1)
+<span class="kw">class</span>(tr.reg<span class="op">$</span>tree1)
 ## [1] &quot;VT.tree.reg&quot;
 ## attr(,&quot;package&quot;)
-## [1] &quot;aVirtualTwins&quot;</code></pre>
+## [1] &quot;aVirtualTwins&quot;</code></pre></div>
 <hr />
 </div>
 </div>
@@ -403,21 +414,21 @@ tr.reg &lt;-<span class="st"> </span><span class="kw">vt.tree</span>(<span class
 <ul>
 <li><code>vt.tree</code> : object or list of class <code>VT.tree</code>. Return of the <code>vt.tree()</code> function.</li>
 <li><code>only.leaf</code> : logical. Set <code>TRUE</code> (default) to visualize only terminal nodes.</li>
-<li><code>only.fav</code> : logical. Set <code>TRUE</code> (default) to visualize only class 1 nodes. (<span class="math">\(\hat{A}\)</span>)</li>
+<li><code>only.fav</code> : logical. Set <code>TRUE</code> (default) to visualize only class 1 nodes. (<span class="math inline">\(\hat{A}\)</span>)</li>
 <li><code>tables</code> : logical. Set <code>FALSE</code> (default) to prevent tables of incidences from being printed.</li>
 <li><code>verbose</code> : logical. Set <code>FALSE</code> (default) to prevent detailed stuffs from being printed.</li>
 <li><code>compete</code> : logical. Set <code>TRUE</code> to print competitors rules thanks to competitors split. <code>FALSE</code> is default value.</li>
 </ul>
 <p>If <code>vt.tree</code> is a list, unique subgroups are printed.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use tr.class computed previously</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use tr.class computed previously</span>
 vt.sbgrps &lt;-<span class="st"> </span><span class="kw">vt.subgroups</span>(tr.class)
 <span class="co"># print tables with knitr package</span>
 <span class="kw">library</span>(knitr)
-knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
+knitr<span class="op">::</span><span class="kw">kable</span>(vt.sbgrps)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
-<th align="left"></th>
+<th></th>
 <th align="left">Subgroup</th>
 <th align="left">Subgroup size</th>
 <th align="left">Treatement event rate</th>
@@ -430,7 +441,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">tree1.11</td>
+<td>tree1.11</td>
 <td align="left">PRAPACHE&lt; 26.5 &amp; AGE&gt;=51.74 &amp; BLGCS&lt; 11.5</td>
 <td align="left">49</td>
 <td align="left">0.485</td>
@@ -441,7 +452,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 <td align="right">1.043</td>
 </tr>
 <tr class="even">
-<td align="left">tree1.3</td>
+<td>tree1.3</td>
 <td align="left">PRAPACHE&gt;=26.5</td>
 <td align="left">157</td>
 <td align="left">0.752</td>
@@ -452,7 +463,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 <td align="right">1.865</td>
 </tr>
 <tr class="odd">
-<td align="left">tree2.11</td>
+<td>tree2.11</td>
 <td align="left">PRAPACHE&lt; 26.5 &amp; BLGCS&lt; 10.5 &amp; AGE&gt;=64.68</td>
 <td align="left">14</td>
 <td align="left">0.7</td>
@@ -463,7 +474,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 <td align="right">1.200</td>
 </tr>
 <tr class="even">
-<td align="left">tree2.13</td>
+<td>tree2.13</td>
 <td align="left">PRAPACHE&gt;=26.5 &amp; AGE&lt; 51.74 &amp; BLLCREAT&lt; 2.3</td>
 <td align="left">21</td>
 <td align="left">0.375</td>
@@ -474,7 +485,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 <td align="right">1.506</td>
 </tr>
 <tr class="odd">
-<td align="left">tree2.7</td>
+<td>tree2.7</td>
 <td align="left">PRAPACHE&gt;=26.5 &amp; AGE&gt;=51.74</td>
 <td align="left">120</td>
 <td align="left">0.897</td>
@@ -485,7 +496,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 <td align="right">2.007</td>
 </tr>
 <tr class="even">
-<td align="left">tree3.13</td>
+<td>tree3.13</td>
 <td align="left">PRAPACHE&gt;=26.5 &amp; AGE&lt; 51.74 &amp; BLLBILI&gt;=2.95</td>
 <td align="left">13</td>
 <td align="left">0.333</td>
@@ -496,7 +507,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 <td align="right">1.564</td>
 </tr>
 <tr class="odd">
-<td align="left">tree4</td>
+<td>tree4</td>
 <td align="left">PRAPACHE&gt;=26.5 &amp; AGE&gt;=51.74 &amp; PRAPACHE&gt;=28.5</td>
 <td align="left">89</td>
 <td align="left">0.915</td>
@@ -510,27 +521,27 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 </table>
 <p>You can plot one tree with package <code>rpart.plot</code></p>
 <pre><code>## Loading required package: rpart</code></pre>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>If you want to see competitors split :</p>
-<pre class="sourceCode r"><code class="sourceCode r">tr.class$tree2$<span class="kw">createCompetitors</span>()
-<span class="kw">head</span>(tr.class$tree2$competitors)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tr.class<span class="op">$</span>tree2<span class="op">$</span><span class="kw">createCompetitors</span>()
+<span class="kw">head</span>(tr.class<span class="op">$</span>tree2<span class="op">$</span>competitors)
 ##    count ncat    improve  index      var path          string
 ## 1    470   -1 119.987009 26.500 PRAPACHE    2 PRAPACHE &lt; 26.5
 ## 2    470    1  37.018261 10.500    BLGCS    2   BLGCS &gt;= 10.5
 ## 3    470   -1  30.491058 61.671      AGE    2    AGE &lt; 61.671
 ## 9    313    1   6.349646 10.500    BLGCS    4   BLGCS &gt;= 10.5
 ## 10   313   -1   5.075061 61.671      AGE    4    AGE &lt; 61.671
-## 11   313   -1   2.027870 19.500 PRAPACHE    4 PRAPACHE &lt; 19.5</code></pre>
+## 11   313   -1   2.027870 19.500 PRAPACHE    4 PRAPACHE &lt; 19.5</code></pre></div>
 <p>If you want to print incidence of a subgroup :</p>
-<pre class="sourceCode r"><code class="sourceCode r">vt.o$<span class="kw">getIncidences</span>(<span class="st">&quot;PRAPACHE &gt;= 26 &amp; AGE &gt;= 52&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vt.o<span class="op">$</span><span class="kw">getIncidences</span>(<span class="st">&quot;PRAPACHE &gt;= 26 &amp; AGE &gt;= 52&quot;</span>)
 ## $table.selected
 ## $table.selected$table
 ##            trt
-## resp        0     1   sum  
-##   0         30    18  48   
-##   1         15    72  87   
-##   sum       45    90  135  
-##   Incidence 0.333 0.8 0.644
+## resp              0       1     sum
+##   0          30.000  18.000  48.000
+##   1          15.000  72.000  87.000
+##   sum        45.000  90.000 135.000
+##   Incidence   0.333   0.800   0.644
 ## 
 ## $table.selected$rr
 ## [1] 2.402402
@@ -539,27 +550,27 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
 ## $table.not.selected
 ## $table.not.selected$table
 ##            trt
-## resp        0     1     sum  
-##   0         71    170   241  
-##   1         37    57    94   
-##   sum       108   227   335  
-##   Incidence 0.343 0.251 0.281
+## resp              0       1     sum
+##   0          71.000 170.000 241.000
+##   1          37.000  57.000  94.000
+##   sum       108.000 227.000 335.000
+##   Incidence   0.343   0.251   0.281
 ## 
 ## $table.not.selected$rr
 ## [1] 0.7317784
 <span class="co"># or</span>
-<span class="co"># tr.class$tree2$getIncidences(&quot;PRAPACHE &gt;= 26 &amp; AGE &gt;= 52&quot;)</span></code></pre>
+<span class="co"># tr.class$tree2$getIncidences(&quot;PRAPACHE &gt;= 26 &amp; AGE &gt;= 52&quot;)</span></code></pre></div>
 <p>If you want to get infos about the tree</p>
-<pre class="sourceCode r"><code class="sourceCode r">tr.class$tree2$<span class="kw">getInfos</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tr.class<span class="op">$</span>tree2<span class="op">$</span><span class="kw">getInfos</span>()
 ## 
 ## Threshold = 0.0675
 ## Delta = 0.0671
 ## Sens : &gt;
 ## Size of Ahat : 155
 <span class="co"># access Ahat</span>
-<span class="co"># tr.class$tree2$Ahat</span></code></pre>
+<span class="co"># tr.class$tree2$Ahat</span></code></pre></div>
 <p>You can re-run rpart computation:</p>
-<pre class="sourceCode r"><code class="sourceCode r">tr.class$tree2$<span class="kw">run</span>(<span class="dt">maxdepth =</span> <span class="dv">2</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tr.class<span class="op">$</span>tree2<span class="op">$</span><span class="kw">run</span>(<span class="dt">maxdepth =</span> <span class="dv">2</span>)</code></pre></div>
 <p>Type <code>?VT.tree</code> for details.</p>
 <hr />
 </div>
@@ -579,7 +590,7 @@ knitr::<span class="kw">kable</span>(vt.sbgrps)</code></pre>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

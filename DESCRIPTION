@@ -1,16 +1,16 @@
 Package: aVirtualTwins
 Type: Package
 Title: Adaptation of Virtual Twins Method from Jared Foster
-Version: 1.0.0
-Date: 2016-10-09
-Authors@R: person("Francois", "Vieille", email = "vieille.francois@gmail.com",
-  role = c("aut", "cre"))
-Description: Research of subgroups in random clinical trials with binary outcome and two treatments groups. This is an adaptation of the Jared Foster method.
+Version: 1.0.1
+Date: 2018-02-03
+Authors@R: c(person("Francois", "Vieille", email = "vieille.francois@gmail.com",
+  role = c("aut", "cre")), person("Jared", "Foster", email = "jared.foster@nih.gov", role = c("aut")))
+Description: Research of subgroups in random clinical trials with binary outcome and two treatments groups. This is an adaptation of the Jared Foster method (<https://www.ncbi.nlm.nih.gov/pubmed/21815180>).
 License: GPL-3 | file LICENSE
 URL: https://github.com/prise6/aVirtualTwins
 BugReports: https://github.com/prise6/aVirtualTwins/issues
 Imports: rpart, party, methods, randomForest, stats
-Suggests: caret, knitr, rpart.plot
+Suggests: caret, knitr, rpart.plot, rmarkdown, e1071
 Depends: R (>= 3.2.0),
 Collate: 'aVirtualTwins.R' 'data.R' 'object.R' 'difft.R' 'setClass.R'
         'predict.R' 'forest.R' 'forest.double.R' 'forest.fold.R'
@@ -18,10 +18,11 @@ Collate: 'aVirtualTwins.R' 'data.R' 'object.R' 'difft.R' 'setClass.R'
         'incidences.R' 'object.wrapper.R' 'tools.R' 'tree.R'
         'tree.class.R' 'tree.reg.R' 'tree.wrapper.R'
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2016-10-09 00:50:55 UTC; prise6
-Author: Francois Vieille [aut, cre]
+Packaged: 2018-02-03 15:22:29 UTC; prise6
+Author: Francois Vieille [aut, cre],
+  Jared Foster [aut]
 Maintainer: Francois Vieille <vieille.francois@gmail.com>
 Repository: CRAN
-Date/Publication: 2016-10-09 09:15:20
+Date/Publication: 2018-02-04 16:00:40 UTC
